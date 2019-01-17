@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.green.spring.dao.AccountDao">
+<!-- root-context.xml의  base-package="kr.green.spring.dao" 로 dao의 경로를 정하고 
+	 mapper의 namespace에서 어떤 dao파일과 연동할 것인지 정한다
+-->
+  <select id="getAccount" resultType="kr.green.spring.vo.AccountVo">
+  <!-- id는 dao인터페이스의 메소드명 resultType은 매퍼에서 내보낼 때 
+  AccountVo객체 타입으로 값을 돌려준다//AccountVo타입이고 vo의 변수명과 db의 컬럼명이 일치해야 하는 이유이다-->
+    select *
+     from account
+      where id = #{id}<!-- where id는 DB의 컬럼명, #{id}는 vo에 파라미터로 있는 변수명 -->
+  </select>
+  
+  <insert id="setAccount">
+	  <!-- insert into account (id, pw, email, gender, authority) -->
+	  insert into account (id, pw, email, gender, authority)
+	  <!-- dao의 파라미터에 @Param을 붙혔을 경우 -->
+	  values (#{accountVo.id},#{accountVo.pw},#{accountVo.email},#{accountVo.gender},#{accountVo.authority})
+ </insert>
+  
+  
+</mapper>
